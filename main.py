@@ -176,7 +176,7 @@ def summaryLinePlot(frame, peakTimes, xLabels):
 	fig 		= plt.gcf()
 	fig.set_size_inches(15,10)
 	# > Convert tube line into filename-safe string and save into figures
-	fig.savefig(join('figures','allTubeSummary.pdf', dpi=600))
+	fig.savefig(join('figures','allTubeSummary.pdf'), dpi=600)
 
 # %% Run Workflow
 frame, xLabels = loadData('MQ2019_19838_TubeCapacity.csv')
