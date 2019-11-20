@@ -126,7 +126,7 @@ def multipleLinePlots(frame, peakTimes, xLabels):
 	# > Create and save a plot for each tube line
 	for tube in tubeLines:
 		# > Run individual figure creation
-		individualLinePlot(frame, peakTimes, xlabels, line)
+		individualLinePlot(frame, peakTimes, xLabels, tube)
 
 def summaryLinePlot(frame, peakTimes, xLabels):
 	# Create a line plot, with time as x-axis, for the capacity of all lines
