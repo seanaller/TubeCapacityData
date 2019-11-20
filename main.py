@@ -126,7 +126,7 @@ def multipleLinePlots(frame, peakTimes, xLabels):
 		# > Run individual figure creation
 		individualLinePlot(frame, peakTimes, xlabels, line)
 
-def summaryLinePlot(frame):
+def summaryLinePlot(frame, peakTimes, xLabels):
 	# Create a line plot, with time as x-axis, for the capacity of all lines
 	# > Identify all the lines
 	tubeLines 	= list(set(frame['Line']))
@@ -177,6 +177,6 @@ def summaryLinePlot(frame):
 	fig.savefig(join('figures','allTubeSummary.pdf', dpi=600))
 
 # %% Run Workflow
-# > Isolate frame and xTick Labels
 frame, xLabels = loadData('MQ2019_19838_TubeCapacity.csv')
-individualLinePlot(frame, peakTimes, xLabels, 'Northern')
+multipleLinePlots(frame, peakTimes, xLabels)
+summaryLinePlot(frame, peakTimes, xLabels)
