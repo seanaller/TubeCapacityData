@@ -5,6 +5,7 @@
 
 # %% Python Depdendencies
 import 	os
+from 	os.path import join
 import 	re
 import 	math
 import	pandas as pd 
@@ -23,7 +24,7 @@ tubeColours 	= {
 	'Central': 			"#E32017",
 	'District': 		"#00782A",
 	'Waterloo & City': 	"#95CDBA"	,
-	'Hammersmith & City and Circle': "#F3A9BB#FFD300"
+	'Hammersmith & City and Circle': "#F3A9BB" #FFD300
 }
 
 # %% Peak time definitions
@@ -111,21 +112,36 @@ def individualLinePlot(frame, peakTimes, xLabels, line):
 		peakTimes['pmStop'],
 		color 	= 'red',
 		alpha 	= 0.25) 	# PM Peak
-	return plt.show()
+	# > Capture figure and set figure size
+	fig 		= plt.gcf()
+	fig.set_size_inches(10,5)
+	# > Convert tube line into filename-safe string and save into figures
+	saveName 	= re.sub(r'\W+', '', line)
+	fig.savefig(join('figures',saveName+'.pdf', dpi=600))
 
-def multipleLinePlots(frame):
+def multipleLinePlots(frame, peakTimes, xLabels):
 	# Create line plots, with time as x-azis, for the capacity of each individual line
+	# > Create and save a plot for each tube line
+	for tube in tubeLines:
+		# > Run individual figure creation
+		individualLinePlot(frame, peakTimes, xlabels, line)
+
+def summaryLinePlot(frame):
+	# Create a line plot, with time as x-axis, for the capacity of all lines
 	# > Identify all the lines
 	tubeLines 	= list(set(frame['Line']))
+	# > Record max values
+	maxValues 	= []
 	# > Create and save a plot for each tube line
 	for tube in tubeLines:
 		# > Load the tube information
-		tubeFrame, xLabels 	= frame[frame['Line'] == tube]
+		tubeFrame 	= frame[frame['Line'] == tube]
 		tubeColor 	= tubeColours[tube]
 		tubeX 		= tubeFrame.columns[1:]
 		tubeY 		= tubeFrame.iloc[0,1:]
+		maxValues.append(max(tubeY))
 		# > Create the plot
-		plt.plot(testX,testY, 
+		plt.plot(tubeX,tubeY, 
 			color 			= tubeColor, 
 			linewidth 		= 3,
 			marker 			= 'o',
@@ -133,34 +149,34 @@ def multipleLinePlots(frame):
 			markeredgewidth = 2,
 			markerfacecolor = 'white',
 		)
-
-# def summaryLinePlot(frame):
-	# Create a line plot, with time as x-axis, for the capacity of all lines
+	# > X Tick Labels
+	plt.xticks(range(1,len(xLabels)+1,1), xLabels, rotation = "vertical")
+	# > Ensure correct scaling of y axis limits
+	if roundTen(max(maxValues)) < 100:
+		yMax 	= 100
+	else:
+		yMax = roundTen(max(maxValues))
+	# > Plot limit and margin adjustments
+	plt.ylim((0,yMax))
+	plt.subplots_adjust(bottom=0.2)
+	# > Create highlighted regions for peak times
+	plt.axvspan(
+		peakTimes['amStart'], 
+		peakTimes['amStop'],
+		color 	= 'red',
+		alpha 	= 0.25) 	# AM Peak
+	plt.axvspan(
+		peakTimes['pmStart'], 
+		peakTimes['pmStop'],
+		color 	= 'red',
+		alpha 	= 0.25) 	# PM Peak
+	# > Capture figure and set figure size
+	fig 		= plt.gcf()
+	fig.set_size_inches(15,10)
+	# > Convert tube line into filename-safe string and save into figures
+	fig.savefig(join('figures','allTubeSummary.pdf', dpi=600))
 
 # %% Run Workflow
 # > Isolate frame and xTick Labels
 frame, xLabels = loadData('MQ2019_19838_TubeCapacity.csv')
 individualLinePlot(frame, peakTimes, xLabels, 'Northern')
-# Single graphics testing
-testFrame 	= frame[frame['Line'] == 'Metropolitan']
-testX 		= testFrame.columns[1:]
-testY 		= testFrame.iloc[0,1:]
-plt.plot(testX,testY, 
-	color = tubeColours['Metropolitan'], 
-	linewidth = 3,
-	marker = 'o',
-	markeredgecolor = tubeColours['Metropolitan'],
-	markeredgewidth = 2,
-	markerfacecolor = 'white',
-	)
-#plt.margins(0.2)
-plt.xticks(range(1,len(xLabels)+1,1), xLabels, rotation = "vertical")
-
-if roundTen(max(testY)) < 100:
-	yMax 	= 100
-else:
-	yMax = roundTen(max(testY))
-
-plt.ylim((0,yMax))
-plt.subplots_adjust(bottom=0.2)
-plt.show()
