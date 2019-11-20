@@ -24,6 +24,6 @@ Peak times (as defined by TFL) are shown using grey-blue hatching. Peak times ar
 * AM: 06:30 to 09:30
 * PM: 16:00 to 19:00
 
-![](figures/allTubeSummary.pdf)  
+![Summary Tube Capacity](figures/allTubeSummary.pdf)  
 
 Note: Individual line summaries are avaliable in the "/figures" folder.
