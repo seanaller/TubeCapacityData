@@ -117,7 +117,7 @@ def individualLinePlot(frame, peakTimes, xLabels, line):
 	fig.set_size_inches(10,5)
 	# > Convert tube line into filename-safe string and save into figures
 	saveName 	= re.sub(r'\W+', '', line)
-	fig.savefig(join('figures',saveName+'.pdf', dpi=600))
+	fig.savefig(join('figures',saveName+'.pdf'), dpi=600)
 
 def multipleLinePlots(frame, peakTimes, xLabels):
 	# Create line plots, with time as x-azis, for the capacity of each individual line
