@@ -118,6 +118,7 @@ def individualLinePlot(frame, peakTimes, xLabels, line):
 	# > Convert tube line into filename-safe string and save into figures
 	saveName 	= re.sub(r'\W+', '', line)
 	fig.savefig(join('figures',saveName+'.pdf'), dpi=600)
+	plt.close()
 
 def multipleLinePlots(frame, peakTimes, xLabels):
 	# Create line plots, with time as x-azis, for the capacity of each individual line
@@ -177,6 +178,7 @@ def summaryLinePlot(frame, peakTimes, xLabels):
 	fig.set_size_inches(15,10)
 	# > Convert tube line into filename-safe string and save into figures
 	fig.savefig(join('figures','allTubeSummary.pdf'), dpi=600)
+	plt.close()
 
 # %% Run Workflow
 frame, xLabels = loadData('MQ2019_19838_TubeCapacity.csv')
