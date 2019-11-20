@@ -29,8 +29,8 @@ tubeColours 	= {
 
 # %% Peak time definitions
 peakTimes 	= {
-	'amStart':	3,	# 06:30
-	'amStop': 	5,	# 09:30
+	'amStart':	2.5,	# 06:30
+	'amStop': 	5.5,	# 09:30
 	'pmStart': 	12,	# 16:00
 	'pmStop': 	15	# 19:00
 }
@@ -122,6 +122,7 @@ def individualLinePlot(frame, peakTimes, xLabels, line):
 	# > Convert tube line into filename-safe string and save into figures
 	saveName 	= re.sub(r'\W+', '', line)
 	fig.savefig(join('figures',saveName+'.pdf'), dpi=600)
+	fig.savefig(join('figures',saveName+'.png'), dpi=600)
 	plt.close()
 
 def multipleLinePlots(frame, peakTimes, xLabels):
@@ -190,6 +191,7 @@ def summaryLinePlot(frame, peakTimes, xLabels):
 	fig.set_size_inches(15,10)
 	# > Convert tube line into filename-safe string and save into figures
 	fig.savefig(join('figures','allTubeSummary.pdf'), dpi=600)
+	fig.savefig(join('figures','allTubeSummary.png'), dpi=600)
 	plt.close()
 
 # %% Run Workflow
