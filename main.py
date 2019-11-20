@@ -112,6 +112,10 @@ def individualLinePlot(frame, peakTimes, xLabels, line):
 		peakTimes['pmStop'],
 		color 	= 'red',
 		alpha 	= 0.25) 	# PM Peak
+	# > Add titles
+	plt.title('Average Weekday Capacity of '+line+' line')
+	plt.xlabel('Time (24h)')
+	plt.xlabel('% Capacity')
 	# > Capture figure and set figure size
 	fig 		= plt.gcf()
 	fig.set_size_inches(10,5)
@@ -173,6 +177,14 @@ def summaryLinePlot(frame, peakTimes, xLabels):
 		peakTimes['pmStop'],
 		color 	= 'red',
 		alpha 	= 0.25) 	# PM Peak
+	# > Add titles
+	plt.title('Summary of Weekday Capacity on all Tube Lines')
+	plt.xlabel('Time (24h)')
+	plt.xlabel('% Capacity')
+	# > Add legend
+	plt.legend(
+		tubeLines
+		)
 	# > Capture figure and set figure size
 	fig 		= plt.gcf()
 	fig.set_size_inches(15,10)
