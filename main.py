@@ -100,22 +100,22 @@ def individualLinePlot(frame, peakTimes, xLabels, line):
 		yMax = roundTen(max(tubeY))
 	# > Plot limit and margin adjustments
 	plt.ylim((0,yMax))
-	plt.subplots_adjust(bottom=0.2)
+	plt.subplots_adjust(bottom=0.3)
 	# > Create highlighted regions for peak times
 	plt.axvspan(
 		peakTimes['amStart'], 
 		peakTimes['amStop'],
-		color 	= 'red',
+		hatch	= '/',
 		alpha 	= 0.25) 	# AM Peak
 	plt.axvspan(
 		peakTimes['pmStart'], 
 		peakTimes['pmStop'],
-		color 	= 'red',
+		hatch	= '/',
 		alpha 	= 0.25) 	# PM Peak
 	# > Add titles
 	plt.title('Average Weekday Capacity of '+line+' line')
 	plt.xlabel('Time (24h)')
-	plt.xlabel('% Capacity')
+	plt.ylabel('% Capacity')
 	# > Capture figure and set figure size
 	fig 		= plt.gcf()
 	fig.set_size_inches(10,5)
@@ -165,22 +165,22 @@ def summaryLinePlot(frame, peakTimes, xLabels):
 		yMax = roundTen(max(maxValues))
 	# > Plot limit and margin adjustments
 	plt.ylim((0,yMax))
-	plt.subplots_adjust(bottom=0.2)
+	plt.subplots_adjust(bottom=0.3)
 	# > Create highlighted regions for peak times
 	plt.axvspan(
 		peakTimes['amStart'], 
 		peakTimes['amStop'],
-		color 	= 'red',
+		hatch	= '/',
 		alpha 	= 0.25) 	# AM Peak
 	plt.axvspan(
 		peakTimes['pmStart'], 
 		peakTimes['pmStop'],
-		color 	= 'red',
+		hatch	= '/',
 		alpha 	= 0.25) 	# PM Peak
 	# > Add titles
 	plt.title('Summary of Weekday Capacity on all Tube Lines')
 	plt.xlabel('Time (24h)')
-	plt.xlabel('% Capacity')
+	plt.ylabel('% Capacity')
 	# > Add legend
 	plt.legend(
 		tubeLines
